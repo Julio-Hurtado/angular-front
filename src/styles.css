@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+.page-item.disabled {
+  cursor: not-allowed;
+}
+
+.container__img {
+  width: 5rem;
+}
