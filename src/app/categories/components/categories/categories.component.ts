@@ -23,14 +23,12 @@ export class CategoriesComponent implements OnInit {
 
   getCategories(page: number, size: number): void {
     this.categorySvc.getCategories(page, size).subscribe((res) => {
-      console.log(res);
-      this.categories = res.body;
+      this.categories = res;
     });
   }
 
   getTotalRecords(): void {
     this.categorySvc.getTotalCategories().subscribe(({ total }) => {
-      console.log(total);
       this.calculatePages(total);
     });
   }
@@ -38,12 +36,10 @@ export class CategoriesComponent implements OnInit {
   calculatePages(totalRecords: number): void {
     this.totalPage = Math.ceil(totalRecords / this.pageSize);
     this.arrPage = new Array(this.totalPage);
-    console.log(this.totalPage, this.arrPage);
   }
 
   goToPage(page: number): void {
     this.actualPage = page;
     this.getCategories(this.actualPage, this.pageSize);
-    console.log('actual page', this.actualPage);
   }
 }
