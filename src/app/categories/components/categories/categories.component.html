@@ -1,30 +1,44 @@
 <div class="container">
   <!-- table data -->
-  <ng-container
-    class="table-responsive-md"
-    *ngIf="categories.length > 0; else noResult"
-  >
-    <table class="table caption-top table-dark table-hover">
-      <caption>
-        List of categories
-      </caption>
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">name</th>
-          <th scope="col">image</th>
-          <th scope="col">created at</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let category of categories">
-          <th scope="row">{{ category.id }}</th>
-          <td>{{ category.name }}</td>
-          <td>{{ category.image }}</td>
-          <td>{{ category.createdAt | date }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <ng-container *ngIf="categories.length > 0; else noResult">
+    <div class="table-responsive-md">
+      <table class="table caption-top table-dark table-hover">
+        <caption>
+          List of categories
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">name</th>
+            <th scope="col">image</th>
+            <th scope="col">created at</th>
+            <th scope="col">options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let category of categories">
+            <th scope="row">{{ category.id }}</th>
+            <td>{{ category.name }}</td>
+            <td class="container__img">
+              <img
+                [src]="category?.image"
+                [alt]="category.name"
+                class="img-fluid rounded"
+              />
+            </td>
+            <td>{{ category.createdAt | date: "short" }}</td>
+            <td>
+              <div>
+                <a [routerLink]="['create']" class="btn btn-info">Edit</a
+                ><a [routerLink]="['create']" class="btn btn-danger ms-1"
+                  >Delete</a
+                >
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </ng-container>
   <ng-template #noResult>
     <p class="alert alert-info mt-3 text-center">
@@ -32,39 +46,37 @@
     </p>
   </ng-template>
 
-  <div class="table-responsive-md"></div>
-
   <!-- pagination -->
   <nav aria-label="Page navigation" *ngIf="arrPage.length > 0">
     <ul class="pagination flex-wrap">
-      <li class="page-item">
-        <button
-          type="button"
+      <li class="page-item" [class.disabled]="actualPage === 1">
+        <a
           class="page-link"
-          [class.disabled]="actualPage === 1"
           (click)="goToPage(actualPage - 1)"
+          [routerLink]="['categories']"
+          [queryParams]="{ page: actualPage - 1 }"
+          >Previous</a
         >
-          Previous
-        </button>
       </li>
       <li class="page-item" *ngFor="let item of arrPage; let i = index">
         <a
           class="page-link"
           (click)="goToPage(i + 1)"
           [ngClass]="actualPage === i + 1 ? 'active' : ''"
+          [routerLink]="['categories']"
+          [queryParams]="{ page: i + 1 }"
         >
           {{ i + 1 }}</a
         >
       </li>
-      <li class="page-item">
-        <button
-          type="button"
+      <li class="page-item" [class.disabled]="actualPage >= totalPage">
+        <a
           class="page-link"
           (click)="goToPage(actualPage + 1)"
-          [class.disabled]="actualPage >= totalPage"
+          [routerLink]="['categories']"
+          [queryParams]="{ page: actualPage + 1 }"
+          >Next</a
         >
-          Next
-        </button>
       </li>
     </ul>
   </nav>
