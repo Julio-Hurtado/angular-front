@@ -8,12 +8,10 @@ import { CategoryService } from 'src/app/services/category.service';
   styleUrls: ['./categories.component.css'],
 })
 export class CategoriesComponent implements OnInit {
-  totalPage = 0;
   pageSize = 5;
   actualPage = 1;
-  arrPage: Array<number> = [];
   categories: Category[] = [];
-
+  totalCategories: number = 0;
   constructor(private categorySvc: CategoryService) {}
 
   ngOnInit(): void {
@@ -29,13 +27,8 @@ export class CategoriesComponent implements OnInit {
 
   getTotalRecords(): void {
     this.categorySvc.getTotalCategories().subscribe(({ total }) => {
-      this.calculatePages(total);
+      this.totalCategories = total;
     });
-  }
-
-  calculatePages(totalRecords: number): void {
-    this.totalPage = Math.ceil(totalRecords / this.pageSize);
-    this.arrPage = new Array(this.totalPage);
   }
 
   goToPage(page: number): void {
