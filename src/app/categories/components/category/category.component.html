@@ -1,1 +1,73 @@
-<p>category works!</p>
+<div class="container">
+  <div class="mt-5 d-flex justify-content-center">
+    <form
+      [formGroup]="categoryForm"
+      (ngSubmit)="sendDataToApi($event)"
+      class="p-2 rounded-3 shadow"
+    >
+      <fieldset>
+        <legend>Form Category</legend>
+        <div class="mb-3">
+          <label for="name" class="form-label">name</label>
+          <input
+            type="text"
+            formControlName="name"
+            [class.is-valid]="isNameFieldValid"
+            [class.is-invalid]="isNameFieldInvalid"
+            id="name"
+            class="form-control"
+            placeholder="category name"
+          />
+          <ng-container *ngIf="isNameFieldInvalid">
+            <div class="invalid-feedback">
+              <span
+                class="form-text text-danger d-block"
+                *ngIf="nameField?.hasError('required')"
+                >Name is required</span
+              >
+              <span
+                class="form-text text-danger d-block"
+                *ngIf="
+                  nameField?.hasError('minlength') ||
+                  nameField?.hasError('maxlength')
+                "
+                >Must be min {{ min }} or max {{ max }} characters long</span
+              >
+            </div>
+          </ng-container>
+        </div>
+
+        <div class="mb-3">
+          <label for="file" class="form-label">select image</label>
+          <input
+            type="file"
+            name="file"
+            [class.is-valid]="isImageFieldValid"
+            [class.is-invalid]="isImageFieldInvalid"
+            id="file"
+            class="form-control"
+            accept="image/*"
+            (change)="uploadFile($event)"
+          />
+          <ng-container *ngIf="isImageFieldInvalid">
+            <div class="invalid-feedback">
+              <span
+                class="form-text text-danger d-block"
+                *ngIf="imageField?.hasError('required')"
+                >image is required</span
+              >
+            </div>
+          </ng-container>
+        </div>
+        <button
+          type="submit"
+          name="saveButton"
+          id="saveButton"
+          class="btn btn-primary"
+        >
+          save category
+        </button>
+      </fieldset>
+    </form>
+  </div>
+</div>
