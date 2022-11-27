@@ -7,18 +7,20 @@ import { Category } from '../models/category';
 export interface Res<T> {
   body: Array<T>;
 }
-
+export interface Resp {
+  mesage: string;
+}
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
-  urlApi = 'http://localhost:3006/apiV1/categories';
+  private urlApi = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
   getCategories(pageNumber: number, pageSize: number) {
     return this.http
-      .get<Res<Category>>(this.urlApi, {
+      .get<Res<Category>>(`${this.urlApi}/categories`, {
         params: { pageNumber, pageSize },
       })
       .pipe(
@@ -26,13 +28,18 @@ export class CategoryService {
           body.map((cat) => {
             return {
               ...cat,
-              image: `${environment.apiUrl}/upload/categories/${cat.id}`,
+              image: `${this.urlApi}/upload/categories/${cat.id}`,
             } as Category;
           })
         )
       );
   }
+
   getTotalCategories() {
-    return this.http.get<{ total: number }>(`${this.urlApi}/total`);
+    return this.http.get<{ total: number }>(`${this.urlApi}/categories/total`);
+  }
+
+  saveCategory(category: FormData) {
+    return this.http.post<Resp>(`${this.urlApi}/categories`, category);
   }
 }
