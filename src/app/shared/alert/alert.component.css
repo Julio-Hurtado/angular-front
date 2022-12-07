@@ -1,0 +1,24 @@
+.svg__sm {
+  width: 20px;
+  height: 20px;
+}
+.alert__fixed {
+  position: fixed;
+  top: 12%;
+  right: 1%;
+}
+.alert {
+  border-left: 0.25rem solid var(--bd-left-color, var(--bs-gray-300));
+}
+.alert-success {
+  --bd-left-color: rgba(var(--bs-success-rgb));
+}
+.alert-info {
+  --bd-left-color: rgba(var(--bs-info-rgb));
+}
+.alert-danger {
+  --bd-left-color: rgba(var(--bs-danger-rgb));
+}
+.alert-warning {
+  --bd-left-color: rgba(var(--bs-warning-rgb));
+}
