@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/services/category.service';
+import { NotificationsService } from 'src/app/services/notifications.service';
+import { generateUrl } from 'src/app/shared/utils/generate-url-img';
 
 @Component({
   selector: 'app-category',
@@ -12,10 +14,12 @@ export class CategoryComponent implements OnInit {
   min = 5;
   max = 50;
   categoryForm!: FormGroup;
+  previousImg: string | null = null;
   constructor(
     private readonly fb: FormBuilder,
     private readonly categorySvc: CategoryService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly notificationsSvc: NotificationsService
   ) {}
 
   ngOnInit(): void {
@@ -64,6 +68,9 @@ export class CategoryComponent implements OnInit {
     const file = (<HTMLInputElement>event.target).files!.item(0);
     if (file) {
       this.imageField?.patchValue(file);
+      generateUrl(this.imageField?.value).then(
+        (url) => (this.previousImg = url)
+      );
     }
   }
 
@@ -82,6 +89,7 @@ export class CategoryComponent implements OnInit {
 
     this.categorySvc.saveCategory(formData).subscribe((res) => {
       console.log(res.mesage);
+      this.notificationsSvc.showSuccess(res.mesage);
       this.router.navigateByUrl('/categories');
     });
   }
