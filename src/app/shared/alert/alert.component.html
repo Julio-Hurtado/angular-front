@@ -21,51 +21,51 @@
     <div
       *ngFor="let alert of arrayNotifications; let i = index"
       @stateAlert
-      class="alert alert-{{ alert?.severity }} alert-dismissible  "
+      class="alert alert-{{
+        alert?.severity
+      }} alert-dismissible d-flex align-items-center  "
       role="alert"
     >
-      <div class="d-flex justify-content-center">
-        <!-- svg success -->
-        <svg
-          *ngIf="alert?.severity === 'success'"
-          class="bi flex-shrink-0 me-2 svg__sm"
-          role="img"
-          aria-label="Success:"
-        >
-          <use xlink:href="#check-circle-fill" />
-        </svg>
-        <!-- svg info -->
-        <svg
-          *ngIf="alert?.severity === 'info'"
-          class="bi flex-shrink-0 me-2 svg__sm"
-          role="img"
-          aria-label="Info:"
-        >
-          <use xlink:href="#info-fill" />
-        </svg>
-        <!-- svg warning -->
-        <svg
-          *ngIf="alert?.severity === 'warning'"
-          class="bi flex-shrink-0 me-2 svg__sm"
-          role="img"
-          aria-label="Warning:"
-        >
-          <use xlink:href="#exclamation-triangle-fill" />
-        </svg>
-        <!-- svg danger -->
-        <svg
-          *ngIf="alert?.severity === 'danger'"
-          class="bi flex-shrink-0 me-2 svg__sm"
-          role="img"
-          aria-label="Danger:"
-        >
-          <use xlink:href="#exclamation-triangle-fill" />
-        </svg>
-        <p class="m-0">
-          <strong> {{ alert?.sumary }} </strong>
-          <span class="ms-1">{{ alert?.detail }}</span>
-        </p>
-      </div>
+      <!-- svg success -->
+      <svg
+        *ngIf="alert?.severity === 'success'"
+        class="bi flex-shrink-0 me-2 svg__sm"
+        role="img"
+        aria-label="Success:"
+      >
+        <use xlink:href="#check-circle-fill" />
+      </svg>
+      <!-- svg info -->
+      <svg
+        *ngIf="alert?.severity === 'info'"
+        class="bi flex-shrink-0 me-2 svg__sm"
+        role="img"
+        aria-label="Info:"
+      >
+        <use xlink:href="#info-fill" />
+      </svg>
+      <!-- svg warning -->
+      <svg
+        *ngIf="alert?.severity === 'warning'"
+        class="bi flex-shrink-0 me-2 svg__sm"
+        role="img"
+        aria-label="Warning:"
+      >
+        <use xlink:href="#exclamation-triangle-fill" />
+      </svg>
+      <!-- svg danger -->
+      <svg
+        *ngIf="alert?.severity === 'danger'"
+        class="bi flex-shrink-0 me-2 svg__sm"
+        role="img"
+        aria-label="Danger:"
+      >
+        <use xlink:href="#exclamation-triangle-fill" />
+      </svg>
+      <p class="m-0">
+        <strong> {{ alert?.sumary }} </strong>
+        <span class="ms-1">{{ alert?.detail }}</span>
+      </p>
       <button
         type="button"
         class="btn-close"
