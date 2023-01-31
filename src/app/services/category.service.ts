@@ -10,6 +10,9 @@ export interface Res<T> {
 export interface Resp {
   mesage: string;
 }
+export interface RespGet<T> {
+  body: T;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -39,7 +42,14 @@ export class CategoryService {
     return this.http.get<{ total: number }>(`${this.urlApi}/categories/total`);
   }
 
+  getCategory(id: number) {
+    return this.http.get<RespGet<Category>>(`${this.urlApi}/categories/${id}`);
+  }
   saveCategory(category: FormData) {
     return this.http.post<Resp>(`${this.urlApi}/categories`, category);
+  }
+
+  updateCategory(id: number, category: FormData) {
+    return this.http.put<Resp>(`${this.urlApi}/categories/${id}`, category);
   }
 }
