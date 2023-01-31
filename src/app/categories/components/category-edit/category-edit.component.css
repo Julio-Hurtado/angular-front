@@ -1,0 +1,5 @@
+@media (min-width: 768px) {
+  .width__50 {
+    max-width: 50%;
+  }
+}
