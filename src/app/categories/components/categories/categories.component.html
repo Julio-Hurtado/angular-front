@@ -37,11 +37,11 @@
             <td>
               <div class="btn-group">
                 <a
-                  [routerLink]="['/categories/edit']"
+                  [routerLink]="['/categories/edit', category.id]"
                   class="btn btn-outline-info"
                   >Edit</a
                 ><a
-                  [routerLink]="['/categories/delete']"
+                  [routerLink]="['/categories/delete', category.id]"
                   class="btn btn-outline-danger"
                   >Delete</a
                 >
